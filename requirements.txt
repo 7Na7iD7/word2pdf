@@ -1,0 +1,6 @@
+# Batch Word → PDF Converter — dependencies
+# Install with: pip install -r requirements.txt
+
+docx2pdf>=0.1.8      # Cross-platform Word→PDF wrapper
+# pywin32>=306       # Uncomment on Windows for COM automation
+# python-docx>=1.1   # Optional: for future document inspection features
