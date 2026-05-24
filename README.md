@@ -2,9 +2,9 @@
 
 <img width="800" alt="Banner" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=2,6,12,18,24&height=250&section=header&text=Word2PDF&fontSize=90&fontAlignY=38&animation=twinkling&fontColor=gradient&stroke=4f8ef7&strokeWidth=2&fontAlign=50"/>
 
-# ⚡ Batch Word → PDF Converter
+# ⚡ Batch Word → PDF Converter & Compressor
 
-### *Professional Batch Conversion with a Sleek Dark GUI*
+### *Professional Batch Conversion & Compression with a Sleek Dark GUI*
 
 [![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Tkinter](https://img.shields.io/badge/Tkinter-GUI-4f8ef7?style=for-the-badge&logo=python&logoColor=white)](https://docs.python.org/3/library/tkinter.html)
@@ -12,17 +12,19 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
 
-**Convert • Manage • Deliver**
+**Convert • Compress • Manage • Deliver**
 
 [Features](#-features) • [Installation](#️-installation) • [Quick Start](#-quick-start) • [Project Structure](#-project-structure) • [Contributing](#-contributing)
 
 </div>
 
+---
+
 ## 📖 Overview
 
-**Batch Word → PDF Converter** is a professional desktop tool for converting multiple `.doc` and `.docx` files to PDF simultaneously — all from a polished dark-themed GUI built with Python and Tkinter.
+**Batch Word → PDF Converter & Compressor** is a professional desktop tool for converting multiple `.doc` and `.docx` files to PDF and compressing existing PDFs — all from a polished dark-themed GUI built with Python and Tkinter.
 
-Designed for power users, developers, and anyone who regularly handles document conversion, it eliminates repetitive manual work through a clean interface, real-time progress tracking, and smart multi-engine backend detection.
+Designed for power users, developers, and anyone who regularly handles document workflows, it eliminates repetitive manual work through a clean two-tab interface, real-time progress tracking, and smart multi-engine backend detection.
 
 <div align="center">
 
@@ -30,7 +32,7 @@ Designed for power users, developers, and anyone who regularly handles document 
 
 | **Batch Processing** | **Smart Backend** | **Live Feedback** | **Zero Lock-in** |
 |:---:|:---:|:---:|:---:|
-| Convert entire folders at once | Auto-detects LibreOffice, Word, or docx2pdf | Real-time log with per-file status | Free & open source, no subscriptions |
+| Convert & compress entire folders at once | Auto-detects best available engine | Real-time log with per-file status | Free & open source, no subscriptions |
 
 </div>
 
@@ -38,7 +40,9 @@ Designed for power users, developers, and anyone who regularly handles document 
 
 ## ✨ Features
 
-### ⚙️ **Multi-Engine Conversion Backend**
+### ▶️ Tab 1 — Word → PDF Conversion
+
+#### ⚙️ **Multi-Engine Conversion Backend**
 
 ```mermaid
 graph LR
@@ -59,24 +63,57 @@ Auto-detects the best available engine in priority order:
 - **Microsoft Word** (Windows) — Via COM automation, highest fidelity
 - **docx2pdf** — Lightweight Python wrapper as fallback
 
-### 📁 **File Management**
+---
+
+### ⚙️ Tab 2 — PDF Compressor *(New!)*
+
+#### 🗜️ **Multi-Engine Compression Backend**
+
+```mermaid
+graph LR
+    A[PDF Files] --> B{Backend Detection}
+    B -->|Best| C[pikepdf]
+    B -->|Fallback| D[pypdf]
+    C --> E[Compressed PDF]
+    D --> E
+
+    style A fill:#1c2130
+    style E fill:#331a00
+```
+
+Auto-detects the best available compression engine:
+- **pikepdf** — Fast and robust, great cross-platform support, recommended
+- **pypdf** — Pure-Python fallback, no extra install needed
+
+#### 🎚️ **Quality Presets**
+
+| Preset | DPI | Best For |
+|--------|-----|----------|
+| `screen` | 72 dpi | Smallest file, screen reading |
+| `ebook` | 150 dpi | Balanced — default |
+| `printer` | 300 dpi | High-quality print |
+| `prepress` | 300 dpi | Maximum quality, press-ready |
+
+---
+
+### 📁 **File Management** *(both tabs)*
 
 <table>
 <tr>
 <td width="50%">
 
 #### Adding Files
-- 📄 **Select Individual Files** — Multi-select `.doc` / `.docx` via file dialog
-- 📂 **Scan Entire Folder** — Recursive scan of all Word files in a directory
+- 📄 **Select Individual Files** — Multi-select via file dialog
+- 📂 **Scan Entire Folder** — Recursive scan of all files in a directory
 - 🔁 **Duplicate Prevention** — Same file won't be added twice
 
 </td>
 <td width="50%">
 
 #### Managing the List
-- 🗑 **Remove Selected** — Delete one or multiple highlighted files
+- 🗑 **Remove Last** — Remove the last file in the list
 - 🧹 **Clear All** — Wipe the list with confirmation dialog
-- ✅ **Live Status Icons** — Each file shows ⏳ → ✅ or ❌ as it converts
+- ✅ **Live Status Icons** — Each file shows `○` → `✓` or `✗` as it processes
 
 </td>
 </tr>
@@ -84,43 +121,55 @@ Auto-detects the best available engine in priority order:
 
 ### 📊 **Real-Time Progress Dashboard**
 
-Track every conversion as it happens:
+Track every operation as it happens:
 
-| Metric | Description |
-|--------|-------------|
-| **Progress Bar** | Live percentage with `current / total` counter |
-| **Success Count** | Number of successfully converted files |
-| **Error Count** | Files that failed, logged with reason |
-| **Speed** | Conversions per second |
-| **Elapsed Time** | Total time since conversion started |
+| Metric | Conversion Tab | Compression Tab |
+|--------|---------------|-----------------|
+| **Progress Bar** | Live percentage | Live percentage |
+| **Success Count** | Files converted | Files compressed |
+| **Failed Count** | Failed files | Failed files |
+| **Speed / Saved** | Conversions/sec | KB/MB saved |
+| **Elapsed Time** | Total time | Total time |
 
-### 📋 **Detailed Conversion Log**
+### 📋 **Detailed Activity Log**
 
 <details>
-<summary><b>Sample Log Output</b></summary>
+<summary><b>Sample Conversion Log</b></summary>
 
 ```
 [14:23:01] Conversion started: 5 files
-[14:23:01] ⏳ Converting: report_q1.docx
-[14:23:03] ✅ report_q1.docx  →  142 KB  (1.8s)
-[14:23:03] ⏳ Converting: invoice_march.docx
-[14:23:04] ✅ invoice_march.docx  →  87 KB  (0.9s)
-[14:23:04] ⏳ Converting: old_format.doc
-[14:23:06] ❌ old_format.doc: LibreOffice returned an error
-[14:23:09] ════════════════════════════════════════
-[14:23:09] Done!  Success: 4  |  Failed: 1  |  Total time: 8.1s
+[14:23:01] Converting: report_q1.docx
+[14:23:03] ✓ report_q1.docx  →  142 KB  (1.8s)
+[14:23:03] Converting: invoice_march.docx
+[14:23:04] ✓ invoice_march.docx  →  87 KB  (0.9s)
+[14:23:04] Converting: old_format.doc
+[14:23:06] ✗ old_format.doc: LibreOffice returned an error
+[14:23:09] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[14:23:09] Done!  ✓ 4  ✗ 1  |  8.1s total
 ```
 
 </details>
 
-Color-coded entries: 🟢 success · 🔴 error · 🔵 info · 🟡 in-progress · ⚫ system
+<details>
+<summary><b>Sample Compression Log</b></summary>
 
-### 🛡 **Conflict Resolution & Safety**
+```
+[02:21:36] Compressing 3 file(s)  [quality: ebook]
+[02:21:36] Compressing: report.pdf
+[02:21:37] ✓ report.pdf  5694→1823 KB  (-68%)  (0.9s)
+[02:21:37] Compressing: invoice.pdf
+[02:21:38] ✓ invoice.pdf  2100→980 KB  (-53%)  (0.8s)
+[02:21:38] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[02:21:38] Done!  ✓ 2  ✗ 0  |  saved 5.0 MB  |  1.7s total
+```
 
-- **Overwrite Mode** — Toggle to replace existing PDFs
-- **Auto-Rename** — When off, saves as `file_1.pdf`, `file_2.pdf` automatically
-- **Thread Safety** — Conversion runs on a background thread; UI never freezes
-- **Cancel Anytime** — Stop mid-batch with instant effect
+</details>
+
+### 🛡 **Safety & Control**
+
+- **Overwrite Mode** — Toggle to replace existing files or auto-rename (`file_1.pdf`, `file_2.pdf`)
+- **Thread Safety** — All operations run on a background thread; UI never freezes
+- **Cancel Anytime** — Stop mid-batch instantly with the Stop button
 
 ---
 
@@ -128,9 +177,9 @@ Color-coded entries: 🟢 success · 🔴 error · 🔵 info · 🟡 in-progress
 
 ### Prerequisites
 
-```bash
-Python: >= 3.9
-LibreOffice (recommended): https://libreoffice.org/download/
+```
+Python  >= 3.9
+LibreOffice (for conversion):  https://libreoffice.org/download/
 ```
 
 ### Automatic Setup (Recommended)
@@ -147,7 +196,7 @@ python setup.py
 `setup.py` will:
 - Create a Python virtual environment (`venv/`)
 - Install all required packages
-- Detect available conversion backends
+- Detect available backends
 - Generate a platform-specific run script (`run.bat` / `run.sh`)
 
 ### Manual Setup
@@ -169,11 +218,21 @@ pip install -r requirements.txt
 python main.py
 ```
 
+### Optional — Install Compression Engines
+
+```bash
+# Option 1: pikepdf (recommended, robust)
+pip install pikepdf
+
+# Option 2: pypdf (pure Python, already included)
+pip install pypdf
+```
+
 <details>
 <summary><b>Platform Notes</b></summary>
 
 **Windows:**
-- LibreOffice or Microsoft Word required
+- LibreOffice or Microsoft Word required for conversion
 - For Word COM automation: `pip install pywin32`
 - Run as Administrator if permission errors occur
 
@@ -193,43 +252,24 @@ sudo dnf install libreoffice   # Fedora
 
 ## 🚀 Quick Start
 
-### Convert Your First Batch
+### Convert Word Files to PDF
 
 1. **Launch the App**
    ```bash
    python main.py
    ```
+2. **Select the `Word → PDF` tab**
+3. **Add Files** — click `＋ Add Files` or `⊞ Add Folder`
+4. **Choose Output Directory** — click `…`
+5. **Click `▶ Convert`** — watch the progress bar and log
 
-2. **Add Files**
-   ```
-   Click "➕ Add Files"  →  Select one or more .docx files
-   — or —
-   Click "📁 Add Folder"  →  All Word files will be scanned recursively
-   ```
+### Compress PDF Files
 
-3. **Choose Output Directory**
-   ```
-   Click "…" next to the output path  →  Select destination folder
-   ```
-
-4. **Convert**
-   ```
-   Click "▶ Convert"  →  Watch the progress bar and log panel
-   ```
-
-5. **Open Results**
-   ```
-   Click "📂 Open Output Folder"  →  Your PDFs are ready
-   ```
-
-### Keyboard & UI Tips
-
-| Action | How |
-|--------|-----|
-| Select multiple files in list | `Ctrl + Click` or `Shift + Click` |
-| Remove selected files | Click 🗑 Remove button |
-| Stop an ongoing conversion | Click ⏹ Stop |
-| Prevent overwriting existing PDFs | Uncheck "Overwrite" box |
+1. **Select the `⚙ PDF Compress` tab**
+2. **Add PDFs** — click `＋ Add PDFs` or `⊞ Add Folder`
+3. **Choose Quality** — `ebook` is the default balanced setting
+4. **Choose Output Directory** — click `…`
+5. **Click `⚙ Compress`** — compressed files saved to output folder
 
 ---
 
@@ -244,46 +284,72 @@ word2pdf/
 │
 ├── core/
 │   ├── __init__.py
-│   └── converter.py     # Conversion engine (multi-backend)
-│                        # ConversionResult · ConversionStats · Converter class
+│   ├── converter.py     # Conversion engine (LibreOffice / Word / docx2pdf)
+│   └── compressor.py    # Compression engine (Ghostscript / pikepdf / pypdf)
 │
 └── ui/
     ├── __init__.py
-    └── app.py           # Full GUI (dark theme, all widgets)
-                         # FileListPanel · ProgressPanel · LogPanel · StatusBar
+    └── app.py           # Full GUI — dark theme, all widgets
+                         # ConversionTab · CompressionTab · FileListPanel
+                         # LogPanel · StatCard · AnimatedProgressBar
 ```
 
 ### Architecture Overview
 
 **`core/converter.py`**
-- `detect_backend()` — Probes system for available engines
+- `detect_backend()` — Probes system for available conversion engines
 - `Converter.convert_file()` — Converts a single file, returns `ConversionResult`
 - `Converter.convert_batch()` — Iterates files with start/done/finish callbacks
-- Thread-safe cancellation via `threading.Event`
+
+**`core/compressor.py`**
+- `detect_compression_backend()` — Probes for Ghostscript, pikepdf, pypdf
+- `Compressor.compress_file()` — Compresses a single PDF, returns `CompressionResult`
+- `Compressor.compress_batch()` — Batch compression with live callbacks
+- Quality presets: `screen / ebook / printer / prepress`
 
 **`ui/app.py`**
-- All UI components are self-contained classes
-- Conversion runs in a `daemon` thread; callbacks use `root.after()` to safely update UI
-- `RoundedButton` — Custom canvas-rendered button with hover state
-- `FileListPanel` — Listbox with per-item status icons and color tagging
+- Two-tab layout: `ConversionTab` and `CompressionTab`
+- All operations run in `daemon` threads; UI updates via `root.after()`
+- `GlowButton` — Custom canvas-rendered button with hover & glow effect
+- `FileListPanel` — Scrollable list with per-item status icons
+- `AnimatedProgressBar` — Custom canvas progress bar with color support
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Common Issues
-
 <details>
 <summary><b>No conversion engine found</b></summary>
 
-Install LibreOffice from [libreoffice.org](https://libreoffice.org), then restart the app. The status bar in the bottom-right corner will confirm the detected engine.
+Install LibreOffice from [libreoffice.org](https://libreoffice.org), then restart the app. The engine name shows in the top-right corner of the window.
+
+</details>
+
+<details>
+<summary><b>Compression fails with "Page must be part of"</b></summary>
+
+This is a `pypdf` limitation with some PDF structures. Install `pikepdf` for better compatibility:
+```bash
+pip install pikepdf
+```
+Restart the app — it will automatically use pikepdf.
+
+</details>
+
+<details>
+<summary><b>Compression ratio is -0% (no savings)</b></summary>
+
+The file is already optimized. Try switching to `pikepdf` if not already installed:
+```bash
+pip install pikepdf
+```
 
 </details>
 
 <details>
 <summary><b>Persian / Arabic text looks broken in output PDF</b></summary>
 
-1. Make sure LibreOffice is the active backend (shown in status bar)
+1. Make sure LibreOffice is the active backend (shown in title bar)
 2. Verify Persian fonts are installed on your system
 3. On Linux: `sudo apt install fonts-farsiweb`
 
@@ -300,8 +366,8 @@ Right-click `run.bat` → **Run as Administrator**
 <summary><b>Output PDF is empty or corrupt</b></summary>
 
 - The source file may be password-protected — remove the password first
-- Try opening the `.docx` in LibreOffice manually to check for issues
-- Check the log panel for the specific error message
+- Try opening the file manually in LibreOffice to verify it's valid
+- Check the Activity Log for the specific error message
 
 </details>
 
@@ -331,10 +397,11 @@ git push origin feature/your-feature-name
 
 | Area | Ideas |
 |------|-------|
-| 🔧 **Backends** | Add `unoconv` support, `wkhtmltopdf` for HTML→PDF |
+| 🔧 **Backends** | Add `unoconv`, `wkhtmltopdf` for HTML→PDF |
+| 🗜️ **Compression** | PDF merging, splitting, watermarking |
 | 🎨 **UI** | Drag-and-drop file support, thumbnail previews |
-| 🌐 **i18n** | Add more UI language options |
-| 🧪 **Tests** | Unit tests for converter core logic |
+| 🌐 **i18n** | Persian UI language option |
+| 🧪 **Tests** | Unit tests for converter and compressor core |
 | 📖 **Docs** | More examples, video walkthrough |
 
 ---
@@ -359,7 +426,7 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 **LibreOffice Team** | **Python Community** | **Open Source Contributors**
 :---: | :---: | :---:
-Best open-source office suite | Amazing ecosystem and tooling | docx2pdf, pywin32, and more
+Best open-source office suite | Amazing ecosystem and tooling | pikepdf, pypdf, docx2pdf, pywin32 and more
 
 </div>
 
