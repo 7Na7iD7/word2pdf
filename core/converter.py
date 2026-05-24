@@ -36,7 +36,6 @@ class ConversionStats:
 
 
 def detect_backend() -> str:
-    """Auto-detect best available conversion backend."""
     lo_paths = [
         "libreoffice", "soffice",
         r"C:\Program Files\LibreOffice\program\soffice.exe",
@@ -55,7 +54,7 @@ def detect_backend() -> str:
             pass
 
     try:
-        import docx2pdf 
+        import docx2pdf
         return "docx2pdf"
     except ImportError:
         pass
@@ -64,7 +63,6 @@ def detect_backend() -> str:
 
 
 def convert_with_libreoffice(source: str, output_dir: str) -> tuple[bool, str]:
-    """Convert using LibreOffice headless mode."""
     lo_bin = "libreoffice"
     for candidate in ["libreoffice", "soffice",
                        r"C:\Program Files\LibreOffice\program\soffice.exe",
@@ -82,12 +80,7 @@ def convert_with_libreoffice(source: str, output_dir: str) -> tuple[bool, str]:
         source
     ]
     try:
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            timeout=120
-        )
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
         if result.returncode == 0:
             stem = Path(source).stem
             expected = Path(output_dir) / f"{stem}.pdf"
@@ -101,15 +94,14 @@ def convert_with_libreoffice(source: str, output_dir: str) -> tuple[bool, str]:
 
 
 def convert_with_win32com(source: str, output_path: str) -> tuple[bool, str]:
-    """Convert using Microsoft Word COM automation (Windows only)."""
     try:
         import win32com.client
-        import pythoncom 
+        import pythoncom
         pythoncom.CoInitialize()
         word = win32com.client.Dispatch("Word.Application")
         word.Visible = False
         doc = word.Documents.Open(os.path.abspath(source))
-        doc.SaveAs(os.path.abspath(output_path), FileFormat=17)  # 17 = wdFormatPDF
+        doc.SaveAs(os.path.abspath(output_path), FileFormat=17)
         doc.Close()
         word.Quit()
         pythoncom.CoUninitialize()
@@ -119,7 +111,6 @@ def convert_with_win32com(source: str, output_path: str) -> tuple[bool, str]:
 
 
 def convert_with_docx2pdf(source: str, output_path: str) -> tuple[bool, str]:
-    """Convert using docx2pdf library."""
     try:
         from docx2pdf import convert
         convert(source, output_path)
@@ -129,15 +120,6 @@ def convert_with_docx2pdf(source: str, output_path: str) -> tuple[bool, str]:
 
 
 class Converter:
-    """
-    Main converter class. Supports:
-    - Batch conversion
-    - Per-file callbacks (for progress UI)
-    - Cancellation
-    - Rename conflict resolution
-    - Output file size tracking
-    """
-
     def __init__(self):
         self.backend = detect_backend()
         self._cancel_event = threading.Event()
@@ -152,7 +134,6 @@ class Converter:
         return self._cancel_event.is_set()
 
     def get_output_path(self, source: str, output_dir: str, overwrite: bool = False) -> str:
-        """Generate output PDF path, handling filename conflicts."""
         stem = Path(source).stem
         base = Path(output_dir) / f"{stem}.pdf"
         if overwrite or not base.exists():
@@ -170,14 +151,12 @@ class Converter:
         output_dir: str,
         overwrite: bool = False,
     ) -> ConversionResult:
-        """Convert a single Word file to PDF."""
         start = time.time()
         output_path = self.get_output_path(source, output_dir, overwrite)
 
         if self.backend == "libreoffice":
             success, info = convert_with_libreoffice(source, output_dir)
             if success:
-                
                 lo_output = Path(output_dir) / f"{Path(source).stem}.pdf"
                 if str(lo_output) != output_path and lo_output.exists():
                     lo_output.rename(output_path)
@@ -215,7 +194,6 @@ class Converter:
         on_done=None,
         on_finish=None,
     ) -> ConversionStats:
-        """Convert a list of files with progress callbacks."""
         self.reset_cancel()
         stats = ConversionStats(total=len(files))
         t0 = time.time()
